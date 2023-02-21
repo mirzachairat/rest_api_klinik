@@ -1,30 +1,96 @@
 import { User } from "../models/User.js";
+import bcrypt from "bcryptjs/dist/bcrypt.js";
+import jwt from "jsonwebtoken";
+const jwtKey = "my_secret_key"
 
-export async function createUser(req, res) {
+
+export async function createUser(req, res){
+  // Our register logic starts here
   try {
-    const { nama, email, telp, password} = req.body;
-    const newUser = await User.create({
-      nama,
-      email,
-      telp,
-      password
+    // Get user input
+    const { nama, email,telp, password } = req.body;
+    // Validate user input
+    if (!(email && password)) {
+      res.status(400).send("All input is required");
+    }
+
+    // check if user already exist
+    // Validate if user exist in our database
+    const oldUser = await User.findOne({
+      attributes: ["nama", "email", "telp", "password", "token", "id"],
+      where: { email },
     });
-    res.json(newUser);
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
+    if (oldUser) {
+      return res.status(409).send("User Already Exist. Please Login");
+    }
+
+    //Encrypt user password
+    const encryptedPassword = await bcrypt.hash(password, 10);
+
+    // Create user in our database
+    const user = await User.create({
+      nama,
+      telp,
+      email: email.toLowerCase(), // sanitize: convert email to lowercase
+      password: encryptedPassword,
+    });
+
+    // Create token
+    const token = jwt.sign(
+      { user_id: user._id, email },
+      jwtKey,
+      {
+        expiresIn: "2h",
+      }
+    );
+    // save user token
+    user.token = token;
+
+    // return new user
+    res.status(201).json(user);
+  } catch (err) {
+    console.log(err);
   }
+  // Our register logic ends here
 }
 
 export async function getUser(req, res) {
+  // Our login logic starts here
   try {
-    const users = await User.findAll({
-      attributes: ["id","nama","email","telp","createdAt","updatedAt"],
-      order: [["id", "DESC"]],
+    // Get user input
+    const { email, password } = req.body;
+
+    // Validate user input
+    if (!(email && password)) {
+      res.status(400).send("All input is required");
+    }
+    // Validate if user exist in our database
+    const user = await User.findOne({ 
+      // attributes: ["nama", "email", "telp", "password", "token", "id"],
+      where: { email }
     });
-    res.json(users);
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
+
+    if (user && (await bcrypt.compare(password, user.password))) {
+      // Create token
+      const token = jwt.sign(
+        { user_id: user._id, email },
+        jwtKey,
+        {
+          expiresIn: "2h",
+        }
+      );
+
+      // save user token
+      user.token = token;
+
+      // user
+      res.status(200).json(token);
+    }
+    res.status(400).send("Password atau Email salah");
+  } catch (err) {
+    console.log(err);
   }
+  // Our register logic ends here
 }
 
 export async function updateTask(req, res) {

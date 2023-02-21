@@ -1,7 +1,7 @@
 {
   "name": "nodejs-postgresql-restapi",
   "version": "1.0.0",
-  "description": "",
+  "description": "mobile_apps",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -9,10 +9,13 @@
     "start": "node src/index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "mirzachairat",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.0.3",
     "express": "^4.17.3",
+    "jsonwebtoken": "^9.0.0",
     "morgan": "^1.10.0",
     "pg": "^8.7.3",
     "pg-hstore": "^2.3.4",
@@ -21,5 +24,13 @@
   "devDependencies": {
     "nodemon": "^2.0.15",
     "sequelize-cli": "^6.4.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mirzachairat/rest_api_klinik.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mirzachairat/rest_api_klinik/issues"
+  },
+  "homepage": "https://github.com/mirzachairat/rest_api_klinik#readme"
 }

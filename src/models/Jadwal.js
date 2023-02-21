@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize";
 import { sequelize } from "../database/database.js";
 
 export const Jadwal = sequelize.define(
-  "jadwal",
+  "jadwals",
   {
     id: {
       type: DataTypes.INTEGER,
