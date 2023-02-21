@@ -142,3 +142,15 @@ export async function getTask(req, res) {
     return res.status(500).json({ message: error.message });
   }
 }
+
+export async function getAllUser(req, res) {
+  try {
+    const user = await User.findAll({
+      attributes: ["id","nama","email","telp"],
+      order: [["id", "DESC"]],
+    });
+    res.json(user);
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+}
