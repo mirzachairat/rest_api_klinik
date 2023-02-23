@@ -66,7 +66,7 @@ export async function getUser(req, res) {
     }
     // Validate if user exist in our database
     const user = await User.findOne({ 
-      // attributes: ["nama", "email", "telp", "password", "token", "id"],
+      attributes: ["nama", "email", "telp", "password", "token", "id"],
       where: { email }
     });
 
@@ -84,10 +84,11 @@ export async function getUser(req, res) {
       user.token = token;
       const data ={
         'token' : token,
+        'id'   : user.id,
         'message' : "success"
       }
       // user
-      res.status(200).json(data);
+      res.status(200).json({data});
     }
     
     res.status(400).send({'message':"gagal login",'status':"error"});
