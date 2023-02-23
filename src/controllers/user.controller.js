@@ -82,9 +82,12 @@ export async function getUser(req, res) {
 
       // save user token
       user.token = token;
-
+      const data ={
+        'token' : token,
+        'message' : "success"
+      }
       // user
-      res.status(200).json(token);
+      res.status(200).json(data);
     }
     res.status(400).send("Password atau Email salah");
   } catch (err) {
