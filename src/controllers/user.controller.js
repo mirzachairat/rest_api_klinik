@@ -89,7 +89,8 @@ export async function getUser(req, res) {
       // user
       res.status(200).json(data);
     }
-    res.status(400).send("Password atau Email salah");
+    
+    res.status(400).send({'message':"gagal login",'status':"error"});
   } catch (err) {
     console.log(err);
   }
