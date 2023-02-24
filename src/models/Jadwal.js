@@ -15,6 +15,9 @@ export const Jadwal = sequelize.define(
     waktu:{
         type: DataTypes.TIME
     },
+    antrian:{
+      type: DataTypes.INTEGER
+    }
   },
   {
     timestamps: true,

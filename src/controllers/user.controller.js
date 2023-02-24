@@ -21,7 +21,7 @@ export async function createUser(req, res){
       where: { email },
     });
     if (oldUser) {
-      return res.status(409).send("User Already Exist. Please Login");
+      return res.status(300).send({'message':'User sudah ada .... '});
     }
 
     //Encrypt user password
@@ -50,7 +50,7 @@ export async function createUser(req, res){
       'status' : 'success'
     };  
     // return new user
-    res.status(201).json(data);
+    res.status(200).json(data);
   } catch (err) {
     console.log(err);
   }

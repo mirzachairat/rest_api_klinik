@@ -3,7 +3,7 @@ import { Jadwal } from "../models/Jadwal.js";
 export async function getJadwalAll(req, res) {
   try {
     const jadwal = await Jadwal.findAll({
-      atributes: ["id", "tanggal", "waktu"],
+      atributes: ["id", "tanggal", "waktu", "antrian"],
     });
     res.json([jadwal]);
   } catch (error) {
@@ -14,12 +14,13 @@ export async function getJadwalAll(req, res) {
 }
 
 export async function createJadwal(req, res) {
-  const { tanggal, waktu} = req.body;
+  const { tanggal, waktu, antrian} = req.body;
   try {
     let newJadwal = await Jadwal.create(
       {
         tanggal,
         waktu,
+        antrian
       },
       {
         fields: ["tanggal","waktu"],
