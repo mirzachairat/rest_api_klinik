@@ -8,7 +8,7 @@ export async function createUser(req, res){
   // Our register logic starts here
   try {
     // Get user input
-    const { nama, email,telp, password } = req.body;
+    const { nama, email, telp, password } = req.body;
     // Validate user input
     if (!(email && password)) {
       res.status(400).send("All input is required");
@@ -45,9 +45,12 @@ export async function createUser(req, res){
     );
     // save user token
     user.token = token;
-
+    const data = {
+      'message' : 'Register berhasil',
+      'status' : 'success'
+    };  
     // return new user
-    res.status(201).json(user);
+    res.status(201).json(data);
   } catch (err) {
     console.log(err);
   }
