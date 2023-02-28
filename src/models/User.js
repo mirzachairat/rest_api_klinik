@@ -27,9 +27,3 @@ export const User = sequelize.define(
     timestamps: true,
   }
 );
-
-User.hasMany(Jadwal, {
-    foreinkey: "userId",
-    sourceKey: "id",
-  });
-Jadwal.belongsTo(User, { foreinkey: "userId", targetId: "id" });

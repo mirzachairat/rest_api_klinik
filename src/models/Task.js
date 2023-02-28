@@ -10,6 +10,9 @@ export const Task = sequelize.define(
       primaryKey: true,
       autoIncrement: true,
     },
+    id_user:{
+      type: DataTypes.INTEGER,
+    },
     diagnosa: {
       type: DataTypes.STRING,
     },

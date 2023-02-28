@@ -1,20 +1,9 @@
 import { Jadwal } from "../models/Jadwal.js";
 
-export async function getJadwalAll(req, res) {
-  try {
-    const jadwal = await Jadwal.findAll({
-      atributes: ["id", "tanggal", "waktu", "antrian"],
-    });
-    res.json([jadwal]);
-  } catch (error) {
-    res.status(500).json({
-      message: error.message,
-    });
-  }
-}
+
 
 export async function createJadwal(req, res) {
-  const { tanggal, waktu, antrian} = req.body;
+  const { id_user, tanggal, waktu, antrian, nama_pet, kondisi_pet} = req.body;
   try {
     let newJadwal = await Jadwal.create(
       {
@@ -22,10 +11,8 @@ export async function createJadwal(req, res) {
         tanggal,
         waktu,
         antrian,
-        nama_pet
-      },
-      {
-        fields: ["id_user","tanggal","waktu", "antrian"],
+        nama_pet,
+        kondisi_pet
       }
     );
     return res.json(newJadwal);
@@ -34,18 +21,43 @@ export async function createJadwal(req, res) {
       message: error.message,
     });
   }
-  res.json("received");
+}
+
+export async function getJadwalAll(req, res) {
+  try {
+    const data = await Jadwal.findAll({
+      atributes: ["id", "id_user","tanggal", "waktu", "antrian", "nama_pet","kondisi_pet"],
+    });
+    const jadwal = {data}
+    if(!jadwal){
+      res.status(300).json({
+        'message' : "data tidak ada"
+      });
+    }
+    return res.json(jadwal);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
 }
 
 export async function getJadwal(req, res) {
-  const { id } = req.params;
+  const { id_user } = req.params;
+  console.log(id_user);
   try {
-    const project = await Project.findOne({
+    const jadwal = await Jadwal.findOne({
       where: {
-        id,
+        id_user,
       },
+      atributes: ["id", "id_user", "tanggal", "waktu", "antrian", "nama_pet","kondisi_pet"]
     });
-    res.json(project);
+    if(jadwal){
+      return res.json(jadwal);
+    }
+    res.status(300).json({
+      'message' : "data tidak ada"
+    });
   } catch (error) {
     res.status(500).json({
       message: error.message,

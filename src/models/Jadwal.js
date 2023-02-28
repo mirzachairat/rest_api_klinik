@@ -9,6 +9,9 @@ export const Jadwal = sequelize.define(
       primaryKey: true,
       autoIncrement: true,
     },
+   id_user :{
+      type : DataTypes.INTEGER
+   },
     tanggal:{
         type: DataTypes.DATE
     },
@@ -17,6 +20,12 @@ export const Jadwal = sequelize.define(
     },
     antrian:{
       type: DataTypes.INTEGER
+    },
+    nama_pet:{
+      type: DataTypes.STRING
+    },
+    kondisi_pet:{
+      type: DataTypes.STRING
     }
   },
   {
