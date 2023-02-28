@@ -18,12 +18,14 @@ export async function createJadwal(req, res) {
   try {
     let newJadwal = await Jadwal.create(
       {
+        id_user,
         tanggal,
         waktu,
-        antrian
+        antrian,
+        nama_pet
       },
       {
-        fields: ["tanggal","waktu"],
+        fields: ["id_user","tanggal","waktu", "antrian"],
       }
     );
     return res.json(newJadwal);
