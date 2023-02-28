@@ -29,11 +29,6 @@ export async function getJadwalAll(req, res) {
       atributes: ["id", "id_user","tanggal", "waktu", "antrian", "nama_pet","kondisi_pet"],
     });
     const jadwal = {data}
-    if(!jadwal){
-      res.status(300).json({
-        'message' : "data tidak ada"
-      });
-    }
     return res.json(jadwal);
   } catch (error) {
     res.status(500).json({
@@ -44,20 +39,12 @@ export async function getJadwalAll(req, res) {
 
 export async function getJadwal(req, res) {
   const { id_user } = req.params;
-  console.log(id_user);
+  console.log(JSON.stringify(id_user));
   try {
     const jadwal = await Jadwal.findOne({
-      where: {
-        id_user,
-      },
-      atributes: ["id", "id_user", "tanggal", "waktu", "antrian", "nama_pet","kondisi_pet"]
+      where: {id_user},
     });
-    if(jadwal){
       return res.json(jadwal);
-    }
-    res.status(300).json({
-      'message' : "data tidak ada"
-    });
   } catch (error) {
     res.status(500).json({
       message: error.message,

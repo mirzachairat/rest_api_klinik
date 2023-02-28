@@ -32,3 +32,15 @@ export async function getPets(req, res) {
   }
 }
 
+export async function getPet(req, res) {
+  const {id_user} = req.params
+  try {
+    const pet = await Pet.findOne({
+      where :{id_user}
+    });
+    res.json(pet);
+  } catch (error) {
+    res.status(500).json({message:error.message});
+  }
+}
+
