@@ -23,10 +23,8 @@ export async function createPet(req, res) {
 
 export async function getPets(req, res) {
   try {
-    const { id_user } = req.body;
     const pet = await Pet.findAll({
-      atributes: ["id_user", "nama_pet", "jenis_kelamin","tgl_lahir","berat","spesies","ras","warna","vaksin"],
-      where :{id_user}
+      atributes: ["id_user", "nama_pet", "jenis_kelamin","tgl_lahir","berat","spesies","ras","warna","vaksin"]
     });
     res.json(pet);
   } catch (error) {

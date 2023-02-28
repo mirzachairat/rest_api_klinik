@@ -8,6 +8,6 @@ const router = Router();
 
 // Routes
 router.post("/create", createPet);
-router.post("/list", getPets);
+router.get("/list", getPets);
 
 export default router;
