@@ -28,7 +28,7 @@ export async function getJadwalAll(req, res) {
     const data = await Jadwal.findAll({
       atributes: ["id", "id_user","tanggal", "waktu", "antrian", "nama_pet","kondisi_pet"],
     });
-    const jadwal = {data}
+    const jadwal = data
     return res.json(jadwal);
   } catch (error) {
     res.status(500).json({
