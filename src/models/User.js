@@ -17,9 +17,12 @@ export const User = sequelize.define(
         type: DataTypes.STRING,
     },
     telp:{
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
     },
     password:{
+        type: DataTypes.STRING,
+    },
+    user_level:{
         type: DataTypes.STRING,
     }
   },

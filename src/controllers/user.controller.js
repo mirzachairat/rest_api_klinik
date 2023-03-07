@@ -69,7 +69,7 @@ export async function getUser(req, res) {
     }
     // Validate if user exist in our database
     const user = await User.findOne({ 
-      attributes: ["nama", "email", "telp", "password", "token", "id"],
+      attributes: ["nama", "email", "telp", "password", "token", "id", "user_level"],
       where: { email }
     });
 
@@ -88,6 +88,7 @@ export async function getUser(req, res) {
       const data ={
         'token' : token,
         'id'   : user.id,
+        'user_level' : user.user_level,
         'message' : "success"
       }
       // user
@@ -154,7 +155,7 @@ export async function getTask(req, res) {
 export async function getAllUser(req, res) {
   try {
     const user = await User.findAll({
-      attributes: ["id","nama","email","telp"],
+      attributes: ["id","nama","email","telp","user_level"],
       order: [["id", "DESC"]],
     });
     res.json(user);
