@@ -18,7 +18,7 @@ export async function createJadwal(req, res) {
     return res.json(newJadwal);
   } catch (error) {
     res.status(500).json({
-      message: error.message,
+      'message': "data gagal di simpan",
     });
   }
 }
