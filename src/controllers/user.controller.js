@@ -21,7 +21,7 @@ export async function createUser(req, res){
       where: { email },
     });
     if (oldUser) {
-      return res.status(300).send({'message':'User sudah ada .... '});
+      return res.status(300).send({message:'User sudah ada .... '});
     }
 
     //Encrypt user password
@@ -52,7 +52,7 @@ export async function createUser(req, res){
     // return new user
     res.status(200).json(data);
   } catch (err) {
-    console.log(err);
+    res.status(400).send({message:"gagal register",status:"error"});
   }
   // Our register logic ends here
 }
@@ -94,10 +94,8 @@ export async function getUser(req, res) {
       // user
       res.status(200).json({data});
     }
-    
-    res.status(400).send({'message':"gagal login",'status':"error"});
   } catch (err) {
-    console.log(err);
+    res.status(400).send({status:"gagal login",'status':"error"});
   }
   // Our register logic ends here
 }
@@ -158,8 +156,11 @@ export async function getAllUser(req, res) {
       attributes: ["id","nama","email","telp","user_level"],
       order: [["id", "DESC"]],
     });
-    res.json(user);
+    res.json({
+      data: user,
+      status: 'success',
+    });
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    return res.status(500).json({ status: 'data tidak ada' });
   }
 }

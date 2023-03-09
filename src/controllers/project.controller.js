@@ -6,10 +6,13 @@ export async function getProjects(req, res) {
     const projects = await Project.findAll({
       atributes: ["id", "name", "priority", "description", "deliverydate"],
     });
-    res.json(projects);
+    res.json({
+      status : "success",
+      data: projects
+      });
   } catch (error) {
     res.status(500).json({
-      message: error.message,
+      status: 'data tidak tersedia',
     });
   }
 }

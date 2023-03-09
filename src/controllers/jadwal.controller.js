@@ -5,7 +5,7 @@ import { Jadwal } from "../models/Jadwal.js";
 export async function createJadwal(req, res) {
   const { id_user, tanggal, waktu, antrian, nama_pet, kondisi_pet} = req.body;
   try {
-    let newJadwal = await Jadwal.create(
+    const newJadwal = await Jadwal.create(
       {
         id_user,
         tanggal,
@@ -15,10 +15,13 @@ export async function createJadwal(req, res) {
         kondisi_pet
       }
     );
-    return res.json(newJadwal);
+    return res.json({
+      status : 'success',
+      data : newJadwal
+  });
   } catch (error) {
     res.status(500).json({
-      'message': "data gagal di simpan",
+      status: "data gagal di simpan",
     });
   }
 }
@@ -28,11 +31,13 @@ export async function getJadwalAll(req, res) {
     const data = await Jadwal.findAll({
       atributes: ["id", "id_user","tanggal", "waktu", "antrian", "nama_pet","kondisi_pet"],
     });
-    const jadwal = data
-    return res.json(jadwal);
+    return res.json({
+      status :'success',
+      data : data
+    });
   } catch (error) {
     res.status(500).json({
-      message: error.message,
+      status: 'Data tidak ada',
     });
   }
 }
@@ -44,7 +49,7 @@ export async function getJadwal(req, res) {
     const jadwal = await Jadwal.findOne({
       where: {id_user},
     });
-      return res.json(jadwal);
+      return res.json();
   } catch (error) {
     res.status(500).json({
       message: error.message,
