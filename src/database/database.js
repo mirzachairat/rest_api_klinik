@@ -42,10 +42,21 @@
 
 
   import Sequelize from "sequelize";
+  import dotenv from 'dotenv';
+  dotenv.config();
+  require('dotenv').config()
 
-  export const sequelize = new Sequelize('postgres', 'postgres', 'bismillah123', {
-    host: "https://34.172.198.10",
-    port: 5432,
+  const {
+    DB_NAME,
+    DB_PASSWORD,
+    DB_USER,
+    DB_URI,
+    DB_PORT
+  } = process.env 
+  
+  export const sequelize = new Sequelize(DB_USER, DB_NAME, DB_PASSWORD, {
+    DB_URI,
+    DB_PORT,
     dialect: 'postgres', 
     });
-
+  
