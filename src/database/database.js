@@ -56,7 +56,6 @@
   
   export const sequelize = new Sequelize(DB_USER, DB_NAME, DB_PASSWORD, {
     DB_URI,
-    DB_PORT,
-    dialect: 'postgres', 
+    DB_PORT
     });
   
