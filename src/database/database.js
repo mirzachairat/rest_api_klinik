@@ -41,20 +41,32 @@
 // );
 
 
-  import Sequelize from "sequelize";
-  import dotenv from 'dotenv';
-  dotenv.config();
+  // import Sequelize from "sequelize";
+  // import dotenv from 'dotenv';
+  // dotenv.config();
 
-  const {
-    DB_NAME,
-    DB_PASSWORD,
-    DB_USER,
-    DB_URI,
-    DB_PORT
-  } = process.env 
+  // const {
+  //   DB_NAME,
+  //   DB_PASSWORD,
+  //   DB_USER,
+  //   DB_URI,
+  //   DB_PORT
+  // } = process.env 
   
-  export const sequelize = new Sequelize(DB_USER, DB_NAME, DB_PASSWORD, {
-    DB_URI,
-    DB_PORT
-    });
+  // export const sequelize = new Sequelize(DB_USER, DB_NAME, DB_PASSWORD, {
+  //   DB_URI,
+  //   DB_PORT
+  //   });
   
+
+// In db.js
+const { Pool } = require("pg");
+
+// The secret connection string you copied earlier
+const connectionString ="PGPASSWORD=Nczq8oB9f3cAUgkdfzXw psql -h containers-us-west-195.railway.app -U postgres -p 6277 -d railway";
+
+const pool = new Pool({
+  connectionString,
+});
+
+module.exports = pool;
