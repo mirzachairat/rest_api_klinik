@@ -44,7 +44,6 @@
   import Sequelize from "sequelize";
   import dotenv from 'dotenv';
   dotenv.config();
-  require('dotenv').config()
 
   const {
     DB_NAME,
